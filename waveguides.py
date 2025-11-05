@@ -59,8 +59,8 @@ def SIWdesign(a,er,designFreq):
     gwl = guideWL(er, designFreq, a);
     d = gwl/5; print('Via diameter needs to be less than:', d)
     p = 2*d; print('Via pitch needs to be less than:', p)
-    d_choice = input('Pick a via diameter (d) that is less than calculated:', d)
-    p_choice = input('Pick a via pitch (p) that is less than calculated:', p)
+    d_choice = float(input('Pick a via diameter (d) that is less than calculated:', d))
+    p_choice = float(input('Pick a via pitch (p) that is less than calculated:', p))
     effective_width = ads(a, er, d_choice, p_choice)
     return d_choice, p_choice, effective_width
 
@@ -77,6 +77,7 @@ print(guideWL(3, 26.5e9, 0.01067))
 
 
 #%% SIW design tool
+
 
 
 
