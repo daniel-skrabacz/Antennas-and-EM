@@ -19,7 +19,7 @@ def cutFreq(a,b,m=1,n=0):
     return 3e8/(2*np.pi)*np.sqrt((m*np.pi/a)**2 + (n*np.pi/b)**2)
 
 def ads(a,er,d, p): # for dielectric filled waveguide, calculate new effective width
-    return (a/np.sqrt(er)) - d**2/(0.95*p)
+    return (a/np.sqrt(er)) - (d**2)/(0.95*p)
 
 def guideWL(er, f, a):
     den = (er*(2*np.pi*f)**2)/c**2 -(np.pi/a)**2
@@ -59,9 +59,17 @@ def SIWdesign(a,er,designFreq):
     gwl = guideWL(er, designFreq, a);
     d = gwl/5; print('Via diameter needs to be less than:', d)
     p = 2*d; print('Via pitch needs to be less than:', p)
-    d_choice = float(input('Pick a via diameter (d) that is less than calculated:', d))
-    p_choice = float(input('Pick a via pitch (p) that is less than calculated:', p))
+    print('')
+    d_choice = float(input('Pick a via diameter in meters (d) that is less than calculated.'))
+    print('')
+    p_choice = float(input('Pick a via pitch in meters (p) that is less than calculated.'))
     effective_width = ads(a, er, d_choice, p_choice)
+    print('')
+    print('Via diameter in mils:',meters2mils(d_choice),'in meters',d_choice)
+    print('')
+    print('Via pitch in mils:', meters2mils(p_choice),' and in meters', p_choice)
+    print('')
+    print('Effective width between two via columns:', meters2mils(effective_width), 'and in meters', effective_width)
     return d_choice, p_choice, effective_width
 
 
@@ -77,9 +85,11 @@ print(guideWL(3, 26.5e9, 0.01067))
 
 
 #%% SIW design tool
+designFreq = 40e9
 
+wavelength = designFreq/c
 
-
+myD, myP, EA = SIWdesign(0.007112,3, designFreq);
 
 
 
